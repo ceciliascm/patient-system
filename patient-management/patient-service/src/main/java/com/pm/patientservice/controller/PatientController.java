@@ -19,7 +19,7 @@ public class PatientController {
         this.patientService = patientService;
     }
 
-    @GetMapping("/list")
+    @GetMapping()
     public ResponseEntity<List<PatientResponseDTO>> getPatients() {
         List<PatientResponseDTO> patients = patientService.getPatients();
         return ResponseEntity.ok().body(patients);
