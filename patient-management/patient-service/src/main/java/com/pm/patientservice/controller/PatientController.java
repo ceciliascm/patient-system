@@ -2,6 +2,7 @@ package com.pm.patientservice.controller;
 
 import com.pm.patientservice.dto.CreatePatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
+import com.pm.patientservice.dto.UpdatePatientRequestDTO;
 import com.pm.patientservice.service.PatientService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +34,8 @@ public class PatientController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PatientResponseDTO> updatePatient(@PathVariable UUID id,
-                                                            @Valid @RequestBody CreatePatientRequestDTO createPatientRequestDTO) {
-        PatientResponseDTO patientResponseDTO = patientService.updatePatient(id, createPatientRequestDTO);
+                                                            @RequestBody UpdatePatientRequestDTO updatePatientRequestDTO) {
+        PatientResponseDTO patientResponseDTO = patientService.updatePatient(id, updatePatientRequestDTO);
         return ResponseEntity.ok().body(patientResponseDTO);
     }
 

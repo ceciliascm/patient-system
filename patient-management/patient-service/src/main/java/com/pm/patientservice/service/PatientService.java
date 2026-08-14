@@ -2,6 +2,7 @@ package com.pm.patientservice.service;
 
 import com.pm.patientservice.dto.CreatePatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
+import com.pm.patientservice.dto.UpdatePatientRequestDTO;
 import com.pm.patientservice.exception.EmailAlreadyExistsException;
 import com.pm.patientservice.mapper.PatientMapper;
 import com.pm.patientservice.model.Patient;
@@ -35,17 +36,17 @@ public class PatientService {
         return PatientMapper.toDTO(newPatient);
     }
 
-    public PatientResponseDTO updatePatient(UUID id, CreatePatientRequestDTO createPatientRequestDTO) {
-        if(patientRepository.existsByEmail((createPatientRequestDTO.getEmail()))) {
-            throw new EmailAlreadyExistsException("Patient with email " + createPatientRequestDTO.getEmail() + " already exists");
+    public PatientResponseDTO updatePatient(UUID id, UpdatePatientRequestDTO updatePatientRequestDTO) {
+        if(patientRepository.existsByEmail((updatePatientRequestDTO.getEmail()))) {
+            throw new EmailAlreadyExistsException("Patient with email " + updatePatientRequestDTO.getEmail() + " already exists");
         }
 
         Patient patient = patientRepository.findById(id).orElseThrow(() -> new RuntimeException("Patient not found"));
 
-        patient.setName(createPatientRequestDTO.getName());
-        patient.setEmail(createPatientRequestDTO.getEmail());
-        patient.setAddress(createPatientRequestDTO.getAddress());
-        patient.setDateOfBirth(LocalDate.parse(createPatientRequestDTO.getDateOfBirth()));
+        patient.setName(updatePatientRequestDTO.getName());
+        patient.setEmail(updatePatientRequestDTO.getEmail());
+        patient.setAddress(updatePatientRequestDTO.getAddress());
+        patient.setDateOfBirth(LocalDate.parse(updatePatientRequestDTO.getDateOfBirth()));
 
         return PatientMapper.toDTO(patientRepository.save(patient));
 
