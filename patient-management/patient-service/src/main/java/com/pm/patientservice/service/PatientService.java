@@ -37,7 +37,7 @@ public class PatientService {
     }
 
     public PatientResponseDTO updatePatient(UUID id, UpdatePatientRequestDTO updatePatientRequestDTO) {
-        if(patientRepository.existsByEmail((updatePatientRequestDTO.getEmail()))) {
+        if(patientRepository.existsByEmailAndIdNot((updatePatientRequestDTO.getEmail()), id)) {
             throw new EmailAlreadyExistsException("Patient with email " + updatePatientRequestDTO.getEmail() + " already exists");
         }
 
